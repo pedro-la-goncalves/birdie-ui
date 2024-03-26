@@ -51,6 +51,15 @@ export class UpdatePageComponent implements OnInit {
     this.redirectTo('/guests');
   }
 
+  onDelete() {
+    this.guestService
+      .delete(this.guest.id!)
+      .subscribe({
+        next: () => this.redirectTo('/guests'),
+        error: (error: HttpErrorResponse) => console.error(error.error)
+      });
+  }
+
   ngOnInit(): void {
     let id = Number(this.route.snapshot.paramMap.get('id'));
     this.getGuest(id);

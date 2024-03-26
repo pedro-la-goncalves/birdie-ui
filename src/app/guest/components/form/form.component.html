@@ -15,12 +15,19 @@
   </mat-form-field>
 
   <div class="actions">
-    <button mat-raised-button extended color="primary" type="submit">
-      Salvar
-    </button>
+    <div class="left">
+      <button mat-raised-button extended color="primary" type="submit">
+        Salvar
+      </button>
 
-    <button mat-stroked-button extended color="primary" type="button" (click)="onCancel($event)">
-      Cancelar
-    </button>
+      <button mat-stroked-button extended color="primary" type="button" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+    <div class="right">
+      <button mat-raised-button extended color="warn" type="button" *ngIf="canDelete" (click)="onDelete()">
+        Deletar
+      </button>
+    </div>
   </div>
 </form>

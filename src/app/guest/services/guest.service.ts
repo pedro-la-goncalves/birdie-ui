@@ -35,11 +35,15 @@ export class GuestService {
     );
   }
 
-  update(guest: Guest) {
+  update(guest: Guest): Observable<Guest> {
     return this.httpClient.put<Guest>(
       this.baseUrl,
       JSON.stringify(guest),
       this.getHeaders()
     );
+  }
+
+  delete(id: number) {
+    return this.httpClient.delete<Guest>(`${this.baseUrl}/${id}`);
   }
 }

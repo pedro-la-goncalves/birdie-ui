@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Guest } from '../../interfaces/guest.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form',
@@ -16,15 +17,18 @@ import { Guest } from '../../interfaces/guest.interface';
     MatButtonModule,
     ReactiveFormsModule,
     RouterModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    CommonModule
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.sass'
 })
 export class FormComponent implements OnInit {
   @Input() guest!: Guest;
+  @Input() canDelete: boolean = false;
   @Output() submit = new EventEmitter<Guest>();
   @Output() cancel = new EventEmitter();
+  @Output() delete = new EventEmitter();
 
   form = new FormGroup({
     name: new FormControl(''),
@@ -62,8 +66,11 @@ export class FormComponent implements OnInit {
     });
   }
 
-  onCancel(event: any) {
-    event.stopPropagation();
+  onCancel() {
     this.cancel.emit();
+  }
+
+  onDelete() {
+    this.delete.emit();
   }
 }
