@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { GuestService } from '../../services/guest.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-guest',
@@ -21,7 +23,9 @@ import { GuestService } from '../../services/guest.service';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
+    MatCheckboxModule,
+    FormsModule,
   ],
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.sass'
@@ -31,10 +35,26 @@ export class ListPageComponent {
   httpClient = inject(HttpClient);
   displayedColumns: string[] = ['name', 'document', 'phone'];
   table: any;
+  showOnlyCheckedInGuests: boolean = false;
 
   constructor(private guestService: GuestService, private router: Router) {}
 
   getGuests() {
+    return this.showOnlyCheckedInGuests ? this.getOnlyCheckedInGuests() : this.getAllGuests();
+  }
+
+  getOnlyCheckedInGuests() {
+    return this.guestService
+    .findAllInHotel()
+    .subscribe({
+        next: (guests: Guest[]) => {
+          this.guests = guests;
+          this.table = new MatTableDataSource(this.guests);
+        }
+    });
+  }
+
+  getAllGuests() {
     return this.guestService
     .findAll()
     .subscribe({

@@ -23,6 +23,10 @@ export class GuestService {
     return this.httpClient.get<Guest[]>(`${this.baseUrl}`);
   }
 
+  findAllInHotel(): Observable<Guest[]> {
+    return this.httpClient.get<Guest[]>(`${this.baseUrl}/in-hotel`);
+  }
+
   findOne(id: number): Observable<Guest> {
     return this.httpClient.get<Guest>(`${this.baseUrl}/${id}`);
   }

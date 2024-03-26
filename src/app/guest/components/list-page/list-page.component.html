@@ -8,13 +8,18 @@
 </div>
 
 <div class="filter">
-  <mat-form-field>
+  <mat-form-field [subscriptSizing]="'dynamic'">
     <mat-label>Filtrar por nome, documento ou contato</mat-label>
     <input matInput (keyup)="filter($event)" #input>
   </mat-form-field>
+
+  <section class="example-section">
+    <mat-checkbox [(ngModel)]="showOnlyCheckedInGuests" (change)="getGuests()">Mostrar apenas os hóspedes que estão atualmente no hotel</mat-checkbox>
+  </section>
 </div>
 
-<table mat-table [dataSource]="table" class="mat-elevation-z1 demo-table">
+
+<table mat-table [dataSource]="table" class="mat-elevation-z1 guest-table">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
     <mat-cell *matCellDef="let guest">{{ guest.name }}</mat-cell>
@@ -34,6 +39,6 @@
   <mat-row matRipple *matRowDef="let row; columns: displayedColumns;let guest;" (click)="redirectTo('/guests/' + guest.id)"></mat-row>
 
   <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="3">Nenhum resultado encontrado para "{{input.value}}"</td>
+    <td class="mat-cell" colspan="3"><div class="no-guest-found">Nenhum hóspede encontrado.</div></td>
   </tr>
 </table>
