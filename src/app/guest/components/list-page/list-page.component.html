@@ -13,9 +13,11 @@
     <input matInput (keyup)="filter($event)" #input>
   </mat-form-field>
 
-  <section class="example-section">
-    <mat-checkbox [(ngModel)]="showOnlyCheckedInGuests" (change)="getGuests()">Mostrar apenas os hóspedes que estão atualmente no hotel</mat-checkbox>
-  </section>
+  <mat-radio-group aria-label="Select an option" class="type-of-guest" [(ngModel)]="typeOfGuest" (change)="getGuests()">
+    <mat-radio-button value="SHOW_ALL">Mostrar todos os hóspedes</mat-radio-button>
+    <mat-radio-button value="SHOW_ONLY_CHECKED_IN">Mostrar apenas os hóspedes que estão atualmente no hotel</mat-radio-button>
+    <mat-radio-button value="SHOW_ONLY_NON_CHECKED_IN_WITH_RESERVATION">Mostrar apenas hóspedes com reserva que não realizaram check-in</mat-radio-button>
+  </mat-radio-group>
 </div>
 
 

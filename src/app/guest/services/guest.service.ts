@@ -27,6 +27,10 @@ export class GuestService {
     return this.httpClient.get<Guest[]>(`${this.baseUrl}/in-hotel`);
   }
 
+  findAllNonCheckedInWithReservation() {
+    return this.httpClient.get<Guest[]>(`${this.baseUrl}/non-checked-in-with-reservation`);
+  }
+
   findOne(id: number): Observable<Guest> {
     return this.httpClient.get<Guest>(`${this.baseUrl}/${id}`);
   }

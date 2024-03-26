@@ -11,6 +11,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { GuestService } from '../../services/guest.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-guest',
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     MatRippleModule,
     MatCheckboxModule,
     FormsModule,
+    MatRadioModule
   ],
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.sass'
@@ -35,17 +37,38 @@ export class ListPageComponent {
   httpClient = inject(HttpClient);
   displayedColumns: string[] = ['name', 'document', 'phone'];
   table: any;
-  showOnlyCheckedInGuests: boolean = false;
+  typeOfGuest: string = "SHOW_ALL";
 
   constructor(private guestService: GuestService, private router: Router) {}
 
   getGuests() {
-    return this.showOnlyCheckedInGuests ? this.getOnlyCheckedInGuests() : this.getAllGuests();
+    switch(this.typeOfGuest) {
+      case "SHOW_ALL":
+        this.getAllGuests();
+        break;
+      case "SHOW_ONLY_CHECKED_IN":
+        this.getOnlyCheckedInGuests();
+        break;
+      case "SHOW_ONLY_NON_CHECKED_IN_WITH_RESERVATION":
+        this.getAllNonCheckedInWithReservation();
+        break;
+    }
   }
 
   getOnlyCheckedInGuests() {
     return this.guestService
     .findAllInHotel()
+    .subscribe({
+        next: (guests: Guest[]) => {
+          this.guests = guests;
+          this.table = new MatTableDataSource(this.guests);
+        }
+    });
+  }
+
+  getAllNonCheckedInWithReservation() {
+    return this.guestService
+    .findAllNonCheckedInWithReservation()
     .subscribe({
         next: (guests: Guest[]) => {
           this.guests = guests;
