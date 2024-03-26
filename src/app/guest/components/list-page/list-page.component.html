@@ -14,7 +14,7 @@
   </mat-form-field>
 </div>
 
-<table mat-table [dataSource]="guests" class="mat-elevation-z1 demo-table">
+<table mat-table [dataSource]="table" class="mat-elevation-z1 demo-table">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
     <mat-cell *matCellDef="let guest">{{ guest.name }}</mat-cell>

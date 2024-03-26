@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, ViewChild, ViewChildren } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Guest } from '../../interfaces/guest.interface';
@@ -30,7 +30,7 @@ export class ListPageComponent {
   guests: Guest[] = [];
   httpClient = inject(HttpClient);
   displayedColumns: string[] = ['name', 'document', 'phone'];
-  table!: MatTableDataSource<Guest>;
+  table: any;
 
   constructor(private guestService: GuestService, private router: Router) {}
 
