@@ -62,24 +62,23 @@ export class FormComponent implements OnInit {
       .findAll()
       .subscribe({
           next: (guests: Guest[]) => {
-            this.form = new FormGroup({
-              id: new FormControl(this.reservation.id),
-              guest: new FormControl(this.reservation.guest),
-              scheduledEntry: new FormControl(this.reservation.scheduledEntry),
-              scheduledDeparture: new FormControl(this.reservation.scheduledDeparture),
-              checkIn: new FormControl(this.reservation.checkIn),
-              checkOut: new FormControl(this.reservation.checkOut),
-              parking: new FormControl(this.reservation.parking),
-              estimatedTotal: new FormControl(this.reservation.estimatedTotal),
-              totalCharged: new FormControl(this.reservation.totalCharged)
-            });
+            this.form = this.updateFormGroup(
+              new FormControl(this.reservation.id),
+              new FormControl(this.reservation.guest),
+              new FormControl(this.reservation.scheduledEntry),
+              new FormControl(this.reservation.scheduledDeparture),
+              new FormControl(this.reservation.checkIn),
+              new FormControl(this.reservation.checkOut),
+              new FormControl(this.reservation.parking),
+              new FormControl(this.reservation.estimatedTotal),
+              new FormControl(this.reservation.totalCharged)
+            );
 
             this.guests = guests;
 
             this.filteredGuests = this.form.controls.guest.valueChanges.pipe(
               startWith(''),
               map((value: any) => {
-                console.log(value);
                 const name = typeof value === 'string' ? value : value?.name;
                 return name ? this._filter(name as string) : this.guests.slice();
               }),
@@ -92,18 +91,32 @@ export class FormComponent implements OnInit {
     return guest && guest.name ? guest.name : '';
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.form = new FormGroup({
-      id: new FormControl(changes['reservation'].currentValue.id),
-      guest: new FormControl<string | Guest>(changes['reservation'].currentValue.guest),
-      scheduledEntry: new FormControl(changes['reservation'].currentValue.scheduledEntry),
-      scheduledDeparture: new FormControl(changes['reservation'].currentValue.scheduledDeparture),
-      checkIn: new FormControl(changes['reservation'].currentValue.checkIn),
-      checkOut: new FormControl(changes['reservation'].currentValue.checkOut),
-      parking: new FormControl(changes['reservation'].currentValue.parking),
-      estimatedTotal: new FormControl(changes['reservation'].currentValue.estimatedTotal),
-      totalCharged: new FormControl(changes['reservation'].currentValue.totalCharged)
+  updateFormGroup(id: FormControl, guest: FormControl, scheduledEntry: FormControl, scheduledDeparture: FormControl, checkIn: FormControl, checkOut: FormControl, parking: FormControl, estimatedTotal: FormControl, totalCharged: FormControl) {
+    return new FormGroup({
+      id,
+      guest,
+      scheduledEntry,
+      scheduledDeparture,
+      checkIn,
+      checkOut,
+      parking,
+      estimatedTotal,
+      totalCharged
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.form = this.updateFormGroup(
+      new FormControl(changes['reservation'].currentValue.id),
+      new FormControl<string | Guest>(changes['reservation'].currentValue.guest),
+      new FormControl(changes['reservation'].currentValue.scheduledEntry),
+      new FormControl(changes['reservation'].currentValue.scheduledDeparture),
+      new FormControl(changes['reservation'].currentValue.checkIn),
+      new FormControl(changes['reservation'].currentValue.checkOut),
+      new FormControl(changes['reservation'].currentValue.parking),
+      new FormControl(changes['reservation'].currentValue.estimatedTotal),
+      new FormControl(changes['reservation'].currentValue.totalCharged)
+    );
   }
 
   ngOnInit() {
