@@ -7,7 +7,7 @@ import { Reservation } from '../interfaces/reservation.interface';
   providedIn: 'root'
 })
 export class ReservationService {
-  private baseUrl = 'http://localhost:8080/api/guests';
+  private baseUrl = 'http://localhost:8080/api/reservations';
 
   httpClient = inject(HttpClient);
 
@@ -28,9 +28,11 @@ export class ReservationService {
   }
 
   create(reservation: Reservation): Observable<Reservation> {
+    console.log(reservation);
+
     return this.httpClient.post<Reservation>(
       this.baseUrl,
-      JSON.stringify(reservation),
+      reservation,
       this.getHeaders()
     );
   }

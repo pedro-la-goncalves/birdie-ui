@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Guest } from '../../../guest/interfaces/guest.interface';
 import { Reservation } from '../../interfaces/reservation.interface';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Observable, map, startWith } from 'rxjs';
 import { GuestService } from '../../../guest/services/guest.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-form',
@@ -23,8 +25,11 @@ import { GuestService } from '../../../guest/services/guest.service';
     RouterModule,
     MatCheckboxModule,
     CommonModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    FormsModule
   ],
+  providers: [ provideNativeDateAdapter() ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.sass'
 })
@@ -43,6 +48,7 @@ export class FormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private guestService: GuestService,
+    @Inject(LOCALE_ID) private locale: string
   ) {}
 
   private _filter(name: string): Guest[] {
@@ -104,10 +110,18 @@ export class FormComponent implements OnInit {
     this.getAllGuests();
   }
 
+  parseReservation() {
+    return {
+      id: this.form.controls.id.value,
+      guest: this.form.controls.guest.value,
+      scheduledEntry: formatDate(this.form.controls.scheduledEntry.value,'yyyy-MM-dd', this.locale),
+      scheduledDeparture: formatDate(this.form.controls.scheduledDeparture.value,'yyyy-MM-dd', this.locale),
+    }
+  }
 
   onSubmit(event: any): void {
     event.stopPropagation();
-    this.submit.emit();
+    this.submit.emit(this.parseReservation());
   }
 
   onCancel() {
