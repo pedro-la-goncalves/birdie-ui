@@ -6,3 +6,27 @@
     Cadastrar
   </button>
 </div>
+
+<table mat-table [dataSource]="table" class="mat-elevation-z1 reservation-table">
+  <ng-container matColumnDef="guest.name">
+    <mat-header-cell *matHeaderCellDef>Hóspede</mat-header-cell>
+    <mat-cell *matCellDef="let reservation">{{ reservation.guest.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="scheduledEntry">
+    <mat-header-cell *matHeaderCellDef>Entrada agendada</mat-header-cell>
+    <mat-cell *matCellDef="let reservation">{{ reservation.scheduledEntry }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="scheduledDeparture">
+    <mat-header-cell *matHeaderCellDef>Saída agendada</mat-header-cell>
+    <mat-cell *matCellDef="let reservation">{{ reservation.scheduledDeparture }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row matRipple *matRowDef="let row; columns: displayedColumns;let reservation;" (click)="redirectTo('/reservations/' + reservation.id)"></mat-row>
+
+  <tr class="mat-row" *matNoDataRow class="example-element-row">
+    <td class="mat-cell" colspan="3"><div class="no-reservation-found">Nenhuma reserva encontrada.</div></td>
+  </tr>
+</table>
