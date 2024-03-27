@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
+import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
 import { ListPageComponent as ListGuestsPageComponent } from './guest/components/list-page/list-page.component';
 import { ListPageComponent as ListReservationsPageComponent } from './reservation/components/list-page/list-page.component';
 import { CreatePageComponent as CreateGuestPageComponent } from './guest/components/create-page/create-page.component';
 import { CreatePageComponent as CreateReservationPageComponent } from './reservation/components/create-page/create-page.component';
-import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
-import { UpdatePageComponent } from './guest/components/update-page/update-page.component';
+import { UpdatePageComponent as UpdateGuestPageComponent } from './guest/components/update-page/update-page.component';
+import { UpdatePageComponent as UpdateReservationPageComponent } from './reservation/components/update-page/update-page.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,7 @@ export const routes: Routes = [
   {
     path: "guests/:id",
     pathMatch: 'full',
-    component: UpdatePageComponent
+    component: UpdateGuestPageComponent
   },
   {
     path: "reservations",
@@ -36,6 +37,11 @@ export const routes: Routes = [
     path: "reservations/new",
     pathMatch: 'full',
     component: CreateReservationPageComponent
+  },
+  {
+    path: "reservations/:id",
+    pathMatch: 'full',
+    component: UpdateReservationPageComponent
   },
   {
     path: '**',

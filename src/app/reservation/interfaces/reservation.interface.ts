@@ -1,8 +1,8 @@
 import { Guest } from "../../guest/interfaces/guest.interface"
 
 export interface Reservation {
-  id?: number
-  guest?: Guest
+  id?: number | null
+  guest?: Guest | null
   scheduledEntry?: string
   scheduledDeparture?: string
   checkIn?: string

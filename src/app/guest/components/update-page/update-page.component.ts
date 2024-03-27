@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GuestService } from '../../services/guest.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Guest } from '../../interfaces/guest.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormComponent } from '../form/form.component';
+import { RouterService } from '../../../shared/services/router/router.service';
 
 @Component({
   selector: 'app-update-page',
@@ -15,7 +16,7 @@ import { FormComponent } from '../form/form.component';
   styleUrl: './update-page.component.sass'
 })
 export class UpdatePageComponent implements OnInit {
-  constructor(private guestService: GuestService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private guestService: GuestService, private routerService: RouterService, private route: ActivatedRoute) {}
 
   guest: Guest = {
     id: null,
@@ -34,28 +35,24 @@ export class UpdatePageComponent implements OnInit {
       });
   }
 
-  redirectTo(route: string) {
-    this.router.navigate([route]);
-  }
-
   onSubmit(guest: Guest) {
     this.guestService
       .update(guest)
       .subscribe({
-        next: () => this.redirectTo('/guests'),
+        next: () => this.routerService.redirectTo('/guests'),
         error: (error: HttpErrorResponse) => console.error(error.error)
       });
   }
 
   onCancel() {
-    this.redirectTo('/guests');
+    this.routerService.redirectTo('/guests');
   }
 
   onDelete() {
     this.guestService
       .delete(this.guest.id!)
       .subscribe({
-        next: () => this.redirectTo('/guests'),
+        next: () => this.routerService.redirectTo('/guests'),
         error: (error: HttpErrorResponse) => console.error(error.error)
       });
   }

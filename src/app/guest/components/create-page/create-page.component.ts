@@ -4,6 +4,7 @@ import { Guest } from '../../interfaces/guest.interface';
 import { GuestService } from '../../services/guest.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RouterService } from '../../../shared/services/router/router.service';
 
 @Component({
   selector: 'app-create-page',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrl: './create-page.component.sass'
 })
 export class CreatePageComponent {
-  constructor(private guestService: GuestService, private router: Router) {}
+  constructor(private guestService: GuestService, private routerService: RouterService) {}
 
   guest: Guest = {
     id: null,
@@ -24,20 +25,16 @@ export class CreatePageComponent {
     phone: ""
   }
 
-  redirectTo(route: string) {
-    this.router.navigate([route]);
-  }
-
   onSubmit(guest: Guest) {
     this.guestService
       .create(guest)
       .subscribe({
-        next: () => this.redirectTo('/guests'),
+        next: () => this.routerService.redirectTo('/guests'),
         error: (error: HttpErrorResponse) => console.error(error.error)
       });
   }
 
   onCancel() {
-    this.redirectTo('/guests');
+    this.routerService.redirectTo('/guests');
   }
 }

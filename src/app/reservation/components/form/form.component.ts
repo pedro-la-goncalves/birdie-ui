@@ -129,6 +129,7 @@ export class FormComponent implements OnInit {
       guest: this.form.controls.guest.value,
       scheduledEntry: formatDate(this.form.controls.scheduledEntry.value,'yyyy-MM-dd', this.locale),
       scheduledDeparture: formatDate(this.form.controls.scheduledDeparture.value,'yyyy-MM-dd', this.locale),
+      parking: this.form.controls.parking.value
     }
   }
 

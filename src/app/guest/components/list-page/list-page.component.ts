@@ -12,6 +12,7 @@ import { GuestService } from '../../services/guest.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { RouterService } from '../../../shared/services/router/router.service';
 
 @Component({
   selector: 'app-guest',
@@ -39,7 +40,7 @@ export class ListPageComponent {
   table: any;
   typeOfGuest: string = "SHOW_ALL";
 
-  constructor(private guestService: GuestService, private router: Router) {}
+  constructor(private guestService: GuestService, private routerService: RouterService) {}
 
   getGuests() {
     switch(this.typeOfGuest) {
@@ -94,7 +95,7 @@ export class ListPageComponent {
   }
 
   redirectTo(route: string) {
-    this.router.navigate([route]);
+    this.routerService.redirectTo(route);
   }
 
   ngOnInit(): void {
