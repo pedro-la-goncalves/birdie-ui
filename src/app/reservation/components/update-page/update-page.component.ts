@@ -62,6 +62,24 @@ export class UpdatePageComponent implements OnInit {
       });
   }
 
+  onCheckIn(reservation: Reservation) {
+    this.reservationService
+      .checkIn(reservation)
+      .subscribe({
+        next: (updatedReservation) => this.reservation = updatedReservation,
+        error: (error: HttpErrorResponse) => console.error(error.error)
+      });
+  }
+
+  onCheckOut(reservation: Reservation) {
+    this.reservationService
+      .checkOut(reservation)
+      .subscribe({
+        next: (updatedReservation) => this.reservation = updatedReservation,
+        error: (error: HttpErrorResponse) => console.error(error.error)
+      });
+  }
+
   ngOnInit(): void {
     let id = Number(this.route.snapshot.paramMap.get('id'));
     this.getReservation(id);

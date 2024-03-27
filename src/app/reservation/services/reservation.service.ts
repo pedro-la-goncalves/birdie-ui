@@ -45,6 +45,22 @@ export class ReservationService {
     );
   }
 
+  checkIn(reservation: Reservation): Observable<Reservation> {
+    return this.httpClient.patch<Reservation>(
+      `${this.baseUrl}/check-in`,
+      JSON.stringify(reservation),
+      this.getHeaders()
+    );
+  }
+
+  checkOut(reservation: Reservation): Observable<Reservation> {
+    return this.httpClient.patch<Reservation>(
+      `${this.baseUrl}/check-out`,
+      JSON.stringify(reservation),
+      this.getHeaders()
+    );
+  }
+
   delete(id: number) {
     return this.httpClient.delete<Reservation>(`${this.baseUrl}/${id}`);
   }

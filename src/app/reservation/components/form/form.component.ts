@@ -13,6 +13,8 @@ import { Observable, map, startWith } from 'rxjs';
 import { GuestService } from '../../../guest/services/guest.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+
 
 @Component({
   selector: 'app-form',
@@ -27,7 +29,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     CommonModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   providers: [ provideNativeDateAdapter() ],
   templateUrl: './form.component.html',
@@ -36,9 +39,13 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 export class FormComponent implements OnInit {
   @Input() reservation!: Reservation;
   @Input() canDelete: boolean = false;
+  @Input() canCheckIn: boolean = false;
+  @Input() canCheckOut: boolean = false;
   @Output() submit = new EventEmitter<Reservation>();
   @Output() cancel = new EventEmitter();
   @Output() delete = new EventEmitter();
+  @Output() checkIn = new EventEmitter();
+  @Output() checkOut = new EventEmitter();
 
   form: any;
   filteredGuests!: Observable<Guest[]>;
@@ -56,6 +63,7 @@ export class FormComponent implements OnInit {
 
     return this.guests.filter(option => option.name.toLowerCase().includes(filterValue));
   }
+
 
   getAllGuests() {
     this.guestService
@@ -127,9 +135,11 @@ export class FormComponent implements OnInit {
     return {
       id: this.form.controls.id.value,
       guest: this.form.controls.guest.value,
-      scheduledEntry: formatDate(this.form.controls.scheduledEntry.value,'yyyy-MM-dd', this.locale),
-      scheduledDeparture: formatDate(this.form.controls.scheduledDeparture.value,'yyyy-MM-dd', this.locale),
-      parking: this.form.controls.parking.value
+      scheduledEntry: formatDate(this.form.controls.scheduledEntry.value, 'yyyy-MM-dd', this.locale),
+      scheduledDeparture: formatDate(this.form.controls.scheduledDeparture.value, 'yyyy-MM-dd', this.locale),
+      parking: this.form.controls.parking.value,
+      checkIn: this.form.controls.checkIn.value ? formatDate(new Date(), "yyyy-MM-dd'T'HH:mm", this.locale) : undefined,
+      checkOut: this.form.controls.checkOut.value ? formatDate(new Date(), "yyyy-MM-dd'T'HH:mm", this.locale) : undefined,
     }
   }
 
@@ -144,5 +154,15 @@ export class FormComponent implements OnInit {
 
   onDelete() {
     this.delete.emit();
+  }
+
+  onCheckIn(event: any) {
+    event.stopPropagation();
+    this.checkIn.emit(this.parseReservation());
+  }
+
+  onCheckOut(event: any) {
+    event.stopPropagation();
+    this.checkOut.emit(this.parseReservation());
   }
 }

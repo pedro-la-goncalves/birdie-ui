@@ -24,6 +24,40 @@
     <mat-checkbox class="example-margin" formControlName="parking">Hóspede deseja utilizar o estacionamento</mat-checkbox>
   </section>
 
+  <mat-card class="checked-in" *ngIf="!canCheckIn">
+    <mat-card-header>
+      <mat-card-title>Check-in realizado</mat-card-title>
+      <mat-card-subtitle>Hóspede realizou o check-in no dia <strong>{{ form.controls.checkIn.value | date:'dd/MM/yyyy' }}</strong> às <strong>{{ form.controls.checkIn.value | date:'HH:mm' }}</strong></mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card class="pending-check-in" *ngIf="canCheckIn">
+    <mat-card-header>
+      <mat-card-title>Check-in pendente</mat-card-title>
+      <mat-card-subtitle>Você deseja realizar o check-in deste hóspede?</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="onCheckIn($event)">Realizar Check-in</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="pending-check-out" *ngIf="canCheckOut">
+    <mat-card-header>
+      <mat-card-title>Check-out pendente</mat-card-title>
+      <mat-card-subtitle>Você deseja realizar o check-out deste hóspede?</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="onCheckOut($event)">Realizar Check-out</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="checked-in" *ngIf="!canCheckOut">
+    <mat-card-header>
+      <mat-card-title>Check-out realizado</mat-card-title>
+      <mat-card-subtitle>Hóspede realizou o check-out no dia <strong>{{ form.controls.checkOut.value | date:'dd/MM/yyyy' }}</strong> às <strong>{{ form.controls.checkOut.value | date:'HH:mm' }}</strong></mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
   <div class="actions">
     <div class="left">
       <button mat-raised-button extended color="primary" type="submit">

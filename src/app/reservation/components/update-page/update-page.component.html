@@ -5,7 +5,11 @@
 <app-form
   [reservation]="reservation"
   [canDelete]="true"
+  [canCheckIn]="reservation.checkIn == 'null'"
+  [canCheckOut]="reservation.checkOut == 'null' && reservation.checkIn != 'null'"
   (submit)="onSubmit($event)"
   (cancel)="onCancel()"
   (delete)="onDelete()"
+  (checkIn)="onCheckIn($event)"
+  (checkOut)="onCheckOut($event)"
 />
