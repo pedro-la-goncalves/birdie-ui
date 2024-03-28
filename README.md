@@ -10,7 +10,7 @@ Recomendo que você esteja usando uma versão mais atual do Node. Durante o dese
 
 ### 2. Clone o projeto para a sua máquina
 ```
-git clone https://github.com/pedro-la-goncalves/birdie-api.git
+git clone https://github.com/pedro-la-goncalves/birdie-ui.git
 ```
 
 ### 3. Instale as dependências
