@@ -1,8 +1,9 @@
 import { Guest } from "../../guest/interfaces/guest.interface"
+import { TotalChargedDetail } from "./total-charged-detail.interface"
 
 export interface Reservation {
-  id?: number | null
-  guest?: Guest | null
+  id?: number
+  guest?: Guest
   scheduledEntry?: string
   scheduledDeparture?: string
   checkIn?: string
@@ -10,4 +11,5 @@ export interface Reservation {
   parking?: boolean
   estimatedTotal?: number
   totalCharged?: number
+  totalChargedDetails?: TotalChargedDetail[]
 }

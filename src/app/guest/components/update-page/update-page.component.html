@@ -2,10 +2,53 @@
   <h1>Informações do hóspede</h1>
 </div>
 
-<app-form
-  [guest]="guest"
-  [canDelete]="true"
-  (submit)="onSubmit($event)"
-  (cancel)="onCancel()"
-  (delete)="onDelete()"
-/>
+<form [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Documento</mat-label>
+    <input matInput formControlName="document">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Telefone para contato</mat-label>
+    <input matInput formControlName="phone">
+  </mat-form-field>
+
+  <div class="actions">
+    <div class="left">
+      <button
+        mat-stroked-button
+        extended
+        color="primary"
+        (click)="onCancel()"
+      >
+        Voltar
+      </button>
+
+      <button
+        mat-raised-button
+        extended
+        color="primary"
+        (click)="onSubmit()"
+        [disabled]="form.invalid || !formHasChanged"
+      >
+        Salvar alterações
+      </button>
+    </div>
+
+    <div class="right">
+      <button
+        mat-raised-button
+        extended
+        color="warn"
+        (click)="onDelete()"
+      >
+        Deletar
+      </button>
+    </div>
+  </div>
+</form>

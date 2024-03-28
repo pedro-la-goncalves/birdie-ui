@@ -1,15 +1,115 @@
 <div class="page-header">
-  <h1>Informações da Reserva</h1>
+  <h1>Detalhes da reserva número <strong class="accent-text">{{ reservation != null ? reservation.id : "" }}</strong></h1>
 </div>
 
-<app-form
-  [reservation]="reservation"
-  [canDelete]="true"
-  [canCheckIn]="reservation.checkIn == 'null'"
-  [canCheckOut]="reservation.checkOut == 'null' && reservation.checkIn != 'null'"
-  (submit)="onSubmit($event)"
-  (cancel)="onCancel()"
-  (delete)="onDelete()"
-  (checkIn)="onCheckIn($event)"
-  (checkOut)="onCheckOut($event)"
-/>
+<div class="guest-info info-section">
+  <p class="label primary-text">Hóspede</p>
+  <p class="value big">{{ reservation != null ? reservation.guest?.name : "" }}</p>
+</div>
+
+<div class="scheduled-date-info info-section">
+  <div>
+    <p class="label primary-text">Entrada no hotel</p>
+    <p class="value big">{{ (reservation != null) ? (reservation.scheduledEntry | date:'dd/MM/yyyy' ) : "" }}</p>
+  </div>
+
+  <mat-icon>arrow_forward</mat-icon>
+
+  <div>
+    <p class="label primary-text">Saída do hotel</p>
+    <p class="value big">{{ (reservation != null) ? (reservation.scheduledDeparture | date:'dd/MM/yyyy' ) : "" }}</p>
+  </div>
+</div>
+
+<div class="parking-info info-section" *ngIf="reservation?.parking">
+  <div class="parking-icon parking">
+    <span class="icon-background primary-background">
+      <mat-icon>directions_car</mat-icon>
+    </span>
+
+    <span class="success-mini-icon icon-background success-background">
+      <mat-icon>check</mat-icon>
+    </span>
+  </div>
+  <div>
+    <p class="label primary-text">Estacionamento</p>
+    <p class="value">Hóspede optou por utilizar o estacionamento</p>
+  </div>
+</div>
+
+<div class="parking-info info-section" *ngIf="!reservation?.parking">
+  <div class="parking-icon parking">
+    <span class="icon-background disabled-background">
+      <mat-icon>directions_car</mat-icon>
+    </span>
+    <span class="success-mini-icon icon-background warn-background">
+      <mat-icon>close</mat-icon>
+    </span>
+  </div>
+  <div>
+    <p class="label primary-text">Estacionamento</p>
+    <p class="value">Hóspede optou por não utilizar o estacionamento</p>
+  </div>
+</div>
+
+<div class="check-in-info info-section" >
+  <div class="check-in-not-available" *ngIf="guestIsTooEarlyForCheckInMessage">
+    <p class="label warn-text">Check-in indisponível</p>
+    <p class="value">A opção de realizar o check-in só estará disponível no dia <strong>{{ (reservation.scheduledEntry != null) ? (reservation.scheduledEntry | date:'dd/MM/yyyy') : "" }}</strong> às <strong>11:00</strong>.</p>
+  </div>
+
+  <div class="check-in-available" *ngIf="guestCanCheckInMessage">
+    <p class="label success-text">Check-in disponível</p>
+    <p class="value">O hóspede já pode realizar o check-in.</p>
+    <button class="check-in-available success-background" mat-raised-button (click)="onCheckIn($event)">Realizar check-in</button>
+  </div>
+
+  <div class="check-in-available" *ngIf="guestAlreadyCheckedInMessage">
+    <p class="label success-text">Check-in realizado</p>
+    <p class="value">O hóspede realizou o check-in no dia <strong>{{ (reservation.checkIn != null) ? (reservation.checkIn | date:'dd/MM/yyyy') : "" }}</strong> às <strong>{{ (reservation.checkIn != null) ? (reservation.checkIn | date:'HH:mm') : "" }}</strong></p>
+  </div>
+</div>
+
+<div class="check-out-info info-section">
+  <div class="check-in-available" *ngIf="guestCanCheckOutMessage">
+    <p class="label success-text">Check-out disponível</p>
+    <p class="value">O hóspede já pode realizar o check-out.</p>
+    <button class="check-out-available success-background" mat-raised-button (click)="onCheckOut($event)">Realizar check-out</button>
+  </div>
+
+  <div class="check-in-available" *ngIf="guestAlreadyCheckedOutMessage">
+    <p class="label success-text">Check-out realizado</p>
+    <p class="value">O hóspede realizou o check-out no dia <strong>{{ (reservation.checkOut != null) ? (reservation.checkOut | date:'dd/MM/yyyy') : "" }}</strong> às <strong>{{ (reservation.checkOut != null) ? (reservation.checkOut | date:'HH:mm') : "" }}</strong></p>
+  </div>
+
+  <div class="missed-reservation-period" *ngIf="guestIsTooLateForCheckInMessage && guestIsTooLateForCheckOutMessage">
+    <p class="label warn-text">Período da reserva encerrado</p>
+    <p class="value">Não é mais possível realizar o check-in pois período da reserva já está encerrado.</p>
+  </div>
+</div>
+
+<div class="charges-info info-section">
+  <div>
+    <h2 class="">Valores a pagar</h2>
+
+    @for (charge of reservation.totalChargedDetails; track charge) {
+      <div class="charge">
+        <p class="label primary-text">{{ getChargeTypeText(charge.type) }}</p>
+        <p class="value">{{ getChargeTotalValue(charge) | currency: 'BRL' }} <strong class="accent-text">{{ getChargeMultiplierText(charge) }}</strong></p>
+      </div>
+    }
+
+    <h1>Total: <span class="primary-text">{{ reservation.totalCharged | currency: 'BRL' }}</span></h1>
+  </div>
+</div>
+
+<div class="actions">
+  <button
+    mat-stroked-button
+    extended
+    color="primary"
+    (click)="onCancel()"
+  >
+    Voltar
+  </button>
+</div>

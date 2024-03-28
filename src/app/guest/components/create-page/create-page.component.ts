@@ -1,31 +1,52 @@
-import { Component, inject } from '@angular/core';
-import { FormComponent } from '../form/form.component';
-import { Guest } from '../../interfaces/guest.interface';
+import { Component } from '@angular/core';
 import { GuestService } from '../../services/guest.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { RouterService } from '../../../shared/services/router/router.service';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CommonModule } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-create-page',
   standalone: true,
   imports: [
-    FormComponent
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatCheckboxModule,
+    CommonModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    FormsModule,
+    MatCardModule,
   ],
   templateUrl: './create-page.component.html',
   styleUrl: './create-page.component.sass'
 })
 export class CreatePageComponent {
-  constructor(private guestService: GuestService, private routerService: RouterService) {}
+  form: FormGroup = new FormGroup({
+    name: new FormControl(undefined, [ Validators.required ]),
+    document: new FormControl(undefined, [ Validators.required ]),
+    phone: new FormControl(undefined, [ Validators.required ]),
+  });
 
-  guest: Guest = {
-    id: null,
-    name: "",
-    document: "",
-    phone: ""
-  }
+  constructor(
+    private guestService: GuestService,
+    private routerService: RouterService
+  ) {}
 
-  onSubmit(guest: Guest) {
+  onSubmit() {
+    let guest = structuredClone(this.form.value);
+
     this.guestService
       .create(guest)
       .subscribe({

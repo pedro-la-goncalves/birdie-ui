@@ -51,7 +51,7 @@ export class GuestService {
     );
   }
 
-  delete(id: number) {
+  delete(id: number | undefined) {
     return this.httpClient.delete<Guest>(`${this.baseUrl}/${id}`);
   }
 }

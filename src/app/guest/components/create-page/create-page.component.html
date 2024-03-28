@@ -1,5 +1,42 @@
 <div class="page-header">
-  <h1>Cadastrar novo hóspede</h1>
+  <h1>Cadastrar um novo hóspede</h1>
 </div>
 
-<app-form [guest]="guest" (submit)="onSubmit($event)" (cancel)="onCancel()" />
+<form [formGroup]="form">
+  <mat-form-field appearance="outline" required>
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" required>
+    <mat-label>Documento</mat-label>
+    <input matInput formControlName="document">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" required>
+    <mat-label>Telefone para contato</mat-label>
+    <input matInput formControlName="phone">
+  </mat-form-field>
+
+  <div class="actions">
+    <button
+      mat-stroked-button
+      extended
+      color="primary"
+      (click)="onCancel()"
+    >
+      Cancelar
+    </button>
+
+    <button
+      mat-raised-button
+      extended
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="form.invalid"
+    >
+      Cadastrar
+    </button>
+  </div>
+</form>
+
