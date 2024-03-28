@@ -88,20 +88,22 @@
   </div>
 </div>
 
-<div class="charges-info info-section">
-  <div>
-    <h2 class="">Valores a pagar</h2>
+@if (reservation != null) {
+  <div class="charges-info info-section" *ngIf="reservation.totalChargedDetails != null">
+    <div>
+      <h2 class="">Valores a pagar</h2>
 
-    @for (charge of reservation.totalChargedDetails; track charge) {
-      <div class="charge">
-        <p class="label primary-text">{{ getChargeTypeText(charge.type) }}</p>
-        <p class="value">{{ getChargeTotalValue(charge) | currency: 'BRL' }} <strong class="accent-text">{{ getChargeMultiplierText(charge) }}</strong></p>
-      </div>
-    }
+        @for (charge of reservation.totalChargedDetails; track charge) {
+          <div class="charge">
+            <p class="label primary-text">{{ getChargeTypeText(charge.type) }}</p>
+            <p class="value">{{ charge.unitValue | currency: 'BRL' }} <strong class="accent-text">{{ getChargeMultiplierText(charge) }}</strong></p>
+          </div>
+        }
 
-    <h1>Total: <span class="primary-text">{{ reservation.totalCharged | currency: 'BRL' }}</span></h1>
+      <h1>Total: <span class="primary-text">{{ reservation.totalCharged | currency: 'BRL' }}</span></h1>
+    </div>
   </div>
-</div>
+}
 
 <div class="actions">
   <button

@@ -97,7 +97,7 @@ export class UpdatePageComponent implements OnInit {
     let guestAlreadyCheckedIn = this.reservation.checkIn != null && this.reservation.checkIn != 'null';
     let guestAlreadyCheckedOut = this.reservation.checkOut != null && this.reservation.checkOut != 'null';
 
-    if (guestAlreadyCheckedIn && guestIsTooLateForCheckOut) this.guestIsTooLateForCheckOutMessage = true;
+    if (!guestAlreadyCheckedIn && guestIsTooLateForCheckOut) this.guestIsTooLateForCheckOutMessage = true;
     else if (guestAlreadyCheckedIn && guestAlreadyCheckedOut) this.guestAlreadyCheckedOutMessage = true;
     else if (guestAlreadyCheckedIn && !guestIsTooLateForCheckOut && !guestAlreadyCheckedOut) this.guestCanCheckOutMessage = true;
   }
@@ -105,14 +105,6 @@ export class UpdatePageComponent implements OnInit {
   getChargeTypeText(type: string) {
     // @ts-ignore
     return ChargeType[type];
-  }
-
-  getChargeTotalValue(charge: TotalChargedDetail) {
-    if (charge.type == "LATE_CHECKOUT") {
-      return charge.unitValue;
-    }
-
-    return charge.totalValue
   }
 
   getChargeMultiplierText(charge: TotalChargedDetail) {
@@ -134,7 +126,12 @@ export class UpdatePageComponent implements OnInit {
     this.reservationService
       .checkIn(reservation)
       .subscribe({
-        next: (updatedReservation) => this.reservation = updatedReservation,
+        next: (updatedReservation) => {
+          this.reservation = updatedReservation;
+          this.guestCanCheckInMessage = false;
+          this.guestAlreadyCheckedInMessage = true;
+          this.guestCanCheckOutMessage = true;
+        },
         error: (error: HttpErrorResponse) => console.error(error.error)
       });
   }
@@ -163,37 +160,4 @@ export class UpdatePageComponent implements OnInit {
     this.routerService.redirectTo('/reservations');
   }
 
-  // onSubmit(reservation: Reservation) {
-  //   this.reservationService
-  //     .update(reservation)
-  //     .subscribe({
-  //       next: () => this.routerService.redirectTo('/reservations'),
-  //       error: (error: HttpErrorResponse) => console.error(error.error)
-  //     });
-  // }
-
-
-
-  // onDelete() {
-  //   this.reservationService
-  //     .delete(this.reservation.id!)
-  //     .subscribe({
-  //       next: () => this.routerService.redirectTo('/reservations'),
-  //       error: (error: HttpErrorResponse) => console.error(error.error)
-  //     });
-  // }
-
-  // onCheckIn(reservation: Reservation) {
-  //   this.reservationService
-  //     .checkIn(reservation)
-  //     .subscribe({
-  //       next: (updatedReservation) => this.reservation = updatedReservation,
-  //       error: (error: HttpErrorResponse) => console.error(error.error)
-  //     });
-  // }
-
-  // ngOnInit(): void {
-  //   let id = Number(this.route.snapshot.paramMap.get('id'));
-  //   this.getReservation(id);
-  // }
 }
