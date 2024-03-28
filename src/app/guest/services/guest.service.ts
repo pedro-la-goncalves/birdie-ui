@@ -2,12 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Guest } from '../interfaces/guest.interface'; // Import the Comment interface
+import { environment } from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GuestService {
-  private baseUrl = 'http://localhost:8080/api/guests';
+  private baseUrl = `${environment.birdieApiUrl}/guests`;
 
   httpClient = inject(HttpClient);
 

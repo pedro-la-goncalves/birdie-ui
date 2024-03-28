@@ -1,27 +1,32 @@
 # BirdieUi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
+Bem vindos! 👋
 
-## Development server
+BirdUi é o front-end da aplicação Birdie que desenvolvi, que é uma plataforma de cadastro de hóspedes e reservas de quartos de um hotel. Você pode encontrar o back-end da aplicação [clicando aqui](https://github.com/pedro-la-goncalves/birdie-api).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Configurando o projeto
+### 1. Verifique a versão do Node em sua máquina
+Recomendo que você esteja usando uma versão mais atual do Node. Durante o desenvolvimento deste projeto não foi utilizado Docker, então não há arquivos de imagem no momento. A versão do Node utilizada durante o desenvolvimento do projeto foi a **18.16.0**.
 
-## Code scaffolding
+### 2. Clone o projeto para a sua máquina
+```
+git clone https://github.com/pedro-la-goncalves/birdie-api.git
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 3. Instale as dependências
+Abra um terminal no diretório do projeto e rode o seguinte comando:
+```
+npm install
+```
 
-## Build
+### 4. Configurando a url para o projeto do back-end
+No arquivo `src/environment/environment.ts` você deverá colocar a url onde o seu projeto do back-end estiver rodando. Já deixei a url `http://localhost:8080/api` que utilizei durante o desenvolvimento do projeto, mas saiba que este valor poderá mudar no caso de você já estiver utilizando a porta em um outro projeto.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 5. Inicie a aplicação
+Abra um terminal no diretório do projeto e rode o seguinte comando:
+```
+ng serve
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Alegria 🎉🎉
+Caso você não tenha configurado o projeto do back-end você pode [clicar aqui](https://github.com/pedro-la-goncalves/birdie-api) para iniciar a configuração.

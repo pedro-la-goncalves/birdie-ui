@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reservation } from '../interfaces/reservation.interface';
+import { environment } from '../../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
-  private baseUrl = 'http://localhost:8080/api/reservations';
+  private baseUrl = `${environment.birdieApiUrl}/reservations`;
 
   httpClient = inject(HttpClient);
 
@@ -28,8 +29,6 @@ export class ReservationService {
   }
 
   create(reservation: Reservation): Observable<Reservation> {
-    console.log(reservation);
-
     return this.httpClient.post<Reservation>(
       this.baseUrl,
       reservation,
