@@ -1,14 +1,15 @@
 import { Injectable, inject } from '@angular/core';
+import { environment } from '../../../../environment/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Guest } from '../interfaces/guest.interface'; // Import the Comment interface
-import { environment } from '../../../environment/environment';
+import { Guest } from '../interfaces/guest.interface';
+import { Page } from '../../../shared/pagination/interfaces/page.interface';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class GuestService {
-  private baseUrl = `${environment.birdieApiUrl}/guests`;
+  private baseUrl = `${environment.birdieApiUrl}/booking/guest`;
 
   httpClient = inject(HttpClient);
 
@@ -20,16 +21,10 @@ export class GuestService {
     }
   }
 
-  findAll(): Observable<Guest[]> {
-    return this.httpClient.get<Guest[]>(`${this.baseUrl}`);
-  }
-
-  findAllInHotel(): Observable<Guest[]> {
-    return this.httpClient.get<Guest[]>(`${this.baseUrl}/in-hotel`);
-  }
-
-  findAllNonCheckedInWithReservation() {
-    return this.httpClient.get<Guest[]>(`${this.baseUrl}/non-checked-in-with-reservation`);
+  findAll(page = 0, size = 10): Observable<Page<Guest>> {
+    return this.httpClient.get<Page<Guest>>(
+      `${this.baseUrl}`, { params: { page, size } }
+    );
   }
 
   findOne(id: number): Observable<Guest> {

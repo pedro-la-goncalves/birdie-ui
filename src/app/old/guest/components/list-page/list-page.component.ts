@@ -12,7 +12,7 @@ import { GuestService } from '../../services/guest.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
-import { RouterService } from '../../../shared/services/router/router.service';
+import { RouterService } from '../../../../shared/services/router/router.service';
 
 @Component({
   selector: 'app-guest',

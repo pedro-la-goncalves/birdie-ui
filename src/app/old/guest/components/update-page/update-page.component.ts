@@ -3,7 +3,7 @@ import { GuestService } from '../../services/guest.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Guest } from '../../interfaces/guest.interface';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RouterService } from '../../../shared/services/router/router.service';
+import { RouterService } from '../../../../shared/services/router/router.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +18,7 @@ import {
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog';
-import { DialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { DialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-update-page',

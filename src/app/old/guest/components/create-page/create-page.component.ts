@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { GuestService } from '../../services/guest.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { RouterService } from '../../../shared/services/router/router.service';
+import { RouterService } from '../../../../shared/services/router/router.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
