@@ -1,0 +1,10 @@
+<div class="app-guest-list">
+  @for (guest of guests; track guest.id) {
+    @if (guest.reservations && guest.reservations.length > 0) {
+      <app-guest-list-item-checked-in [guest]="guest" />
+      <app-guest-list-item-checked-out [guest]="guest" />
+    } @else {
+      <app-guest-list-item-not-checked-in [guest]="guest" />
+    }
+  }
+</div>

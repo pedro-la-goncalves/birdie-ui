@@ -1,0 +1,7 @@
+<app-guest-list-item class="app-gust-list-item-checked-in">
+  <app-avatar-placeholder avatar color="success" [initials]="guestService.getInitials(guest.name)"/>
+  <app-guest-list-item-text>
+    <app-guest-list-item-title>{{ guest.name + " " + guest.surname }}</app-guest-list-item-title>
+    <app-guest-list-item-subtitle color="success">Checked in at Month Day, Year</app-guest-list-item-subtitle>
+  </app-guest-list-item-text>
+</app-guest-list-item>

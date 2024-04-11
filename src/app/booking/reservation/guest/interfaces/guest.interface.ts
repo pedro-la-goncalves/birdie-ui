@@ -7,4 +7,5 @@ export interface Guest {
   socialName?: string
   birthdate?: string
   contacts?: GuestContact[]
+  reservations?: any[]
 }

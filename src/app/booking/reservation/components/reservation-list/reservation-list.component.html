@@ -1,0 +1,10 @@
+<div class="app-reservation-list">
+  @for (reservation of reservations; track reservation.id) {
+    @if (false) {
+      <app-reservation-list-item-checked-in [reservation]="reservation" />
+      <app-reservation-list-item-checked-out [reservation]="reservation" />
+    } @else {
+      <app-reservation-list-item-not-checked-in [reservation]="reservation" />
+    }
+  }
+</div>

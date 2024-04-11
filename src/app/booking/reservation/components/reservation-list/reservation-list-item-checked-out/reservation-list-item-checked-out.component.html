@@ -1,0 +1,7 @@
+<app-reservation-list-item>
+  <app-avatar-placeholder avatar color="error" [initials]="reservationService.getInitials(reservation.guest?.name)"/>
+  <app-reservation-list-item-text>
+    <app-reservation-list-item-title>{{ reservation.guest?.name + " " + reservation.guest?.surname }}</app-reservation-list-item-title>
+    <app-reservation-list-item-subtitle color="error">Checked out at Month Day, Year</app-reservation-list-item-subtitle>
+  </app-reservation-list-item-text>
+</app-reservation-list-item>

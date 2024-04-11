@@ -4,6 +4,8 @@
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
 
+@use "sass:map";
+
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -12,19 +14,19 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$birdie-ui-primary: mat.define-palette(mat.$indigo-palette);
+$birdie-ui-primary: mat.define-palette(mat.$red-palette);
 $birdie-ui-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$birdie-ui-warn: mat.define-palette(mat.$red-palette);
+$birdie-ui-information: mat.define-palette(mat.$light-blue-palette);
+$birdie-ui-success: mat.define-palette(mat.$light-green-palette);
+$birdie-ui-warn: mat.define-palette(mat.$orange-palette);
+$birdie-ui-error: mat.define-palette(mat.$pink-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $birdie-ui-theme: mat.define-light-theme((
   color: (
     primary: $birdie-ui-primary,
-    accent: $birdie-ui-accent,
-    warn: $birdie-ui-warn,
+    accent: $birdie-ui-accent
   ),
   typography: mat.define-typography-config(),
   density: 0
@@ -32,8 +34,12 @@ $birdie-ui-theme: mat.define-light-theme((
 
 $primary-default: mat.get-theme-color($birdie-ui-theme, primary, default);
 $accent-default: mat.get-theme-color($birdie-ui-theme, accent, default);
-$warn-default: mat.get-theme-color($birdie-ui-theme, warn, default);
-$success-default: #2db83d;
+
+$information-default: map.get(mat.$light-blue-palette, 500);
+$success-default: map.get(mat.$light-green-palette, 500);
+$warn-default: map.get(mat.$orange-palette, 500);
+$error-default: map.get(mat.$pink-palette, 500);
+
 $disabled-default: #ccc;
 
 .primary-text {
@@ -41,6 +47,7 @@ $disabled-default: #ccc;
 }
 
 .primary-background {
+  color: #fff;
   background-color: $primary-default !important;
 }
 
@@ -49,7 +56,22 @@ $disabled-default: #ccc;
 }
 
 .accent-background {
+  color: #fff;
   background-color: $accent-default !important;
+}
+
+.information-text {
+  color: $information-default !important;
+}
+
+.information-background {
+  color: #fff;
+  background-color: $information-default !important;
+}
+
+.mdc-button.information-background {
+  color: white !important;
+  background-color: $information-default !important;
 }
 
 .success-text {
@@ -57,12 +79,13 @@ $disabled-default: #ccc;
 }
 
 .success-background {
+  color: #fff;
   background-color: $success-default !important;
 }
 
 .mdc-button.success-background {
-  background-color: $success-default !important;
   color: white !important;
+  background-color: $success-default !important;
 }
 
 .warn-text {
@@ -70,7 +93,27 @@ $disabled-default: #ccc;
 }
 
 .warn-background {
+  color: #fff;
   background-color: $warn-default !important;
+}
+
+.mdc-button.warn-background {
+  color: white !important;
+  background-color: $warn-default !important;
+}
+
+.error-text {
+  color: $error-default !important;
+}
+
+.error-background {
+  color: #fff;
+  background-color: $error-default !important;
+}
+
+.mdc-button.error-background {
+  color: white !important;
+  background-color: $error-default !important;
 }
 
 .disabled-text {
@@ -78,6 +121,7 @@ $disabled-default: #ccc;
 }
 
 .disabled-background {
+  color: #fff;
   background-color: $disabled-default !important;
 }
 

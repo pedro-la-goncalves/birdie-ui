@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 // import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
-import { ListPageComponent as ListGuestsPageComponent } from './booking/guest/components/list-page/list-page.component';
+import { ListPageComponent as ReservationListPageComponent } from './booking/reservation/components/list-page/list-page.component';
+import { ListPageComponent as GuestListPageComponent} from './booking/reservation/guest/components/list-page/list-page.component';
 // import { ListPageComponent as ListReservationsPageComponent } from './old/reservation/components/list-page/list-page.component';
 // import { CreatePageComponent as CreateGuestPageComponent } from './old/guest/components/create-page/create-page.component';
 // import { CreatePageComponent as CreateReservationPageComponent } from './old/reservation/components/create-page/create-page.component';
@@ -11,14 +12,18 @@ export const routes: Routes = [
   {
     path: "",
     pathMatch: 'full',
-    redirectTo: "booking/guest"
+    redirectTo: "booking/reservation"
   },
   {
-    path: "booking/guest",
+    path: "booking/reservation/guest",
     pathMatch: 'full',
-    component: ListGuestsPageComponent
+    component: GuestListPageComponent
   },
-
+  {
+    path: "booking/reservation",
+    pathMatch: 'full',
+    component: ReservationListPageComponent
+  },
 
 
 

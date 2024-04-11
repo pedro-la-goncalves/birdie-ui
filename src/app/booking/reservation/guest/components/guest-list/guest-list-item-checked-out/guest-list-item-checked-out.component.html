@@ -1,0 +1,7 @@
+<app-guest-list-item>
+  <app-avatar-placeholder avatar color="error" [initials]="guestService.getInitials(guest.name)"/>
+  <app-guest-list-item-text>
+    <app-guest-list-item-title>{{ guest.name + " " + guest.surname }}</app-guest-list-item-title>
+    <app-guest-list-item-subtitle color="error">Checked out at Month Day, Year</app-guest-list-item-subtitle>
+  </app-guest-list-item-text>
+</app-guest-list-item>

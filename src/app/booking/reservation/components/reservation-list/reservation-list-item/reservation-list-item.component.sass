@@ -1,0 +1,18 @@
+@use '@angular/material' as mat
+
+.app-reservation-list-item
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: flex-start
+  gap: 8px
+
+  padding: 8px
+
+  @include mat.elevation-transition()
+  // @include mat.elevation(1)
+  border-radius: 9999px
+
+  &:hover
+    @include mat.elevation(3)
+    cursor: pointer

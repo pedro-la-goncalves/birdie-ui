@@ -1,0 +1,7 @@
+<app-reservation-list-item class="app-reservation-list-item-checked-in">
+  <app-avatar-placeholder avatar color="success" [initials]="reservationService.getInitials(reservation.guest?.name)"/>
+  <app-reservation-list-item-text>
+    <app-reservation-list-item-title>{{ reservation.guest?.name + " " + reservation.guest?.surname }}</app-reservation-list-item-title>
+    <app-reservation-list-item-subtitle color="success">Checked in at Month Day, Year</app-reservation-list-item-subtitle>
+  </app-reservation-list-item-text>
+</app-reservation-list-item>
