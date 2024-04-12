@@ -1,7 +1,21 @@
-<app-reservation-list-item class="app-reservation-list-item-checked-in">
-  <app-avatar-placeholder avatar color="success" [initials]="reservationService.getInitials(reservation.guest?.name)"/>
-  <app-reservation-list-item-text>
-    <app-reservation-list-item-title>{{ reservation.guest?.name + " " + reservation.guest?.surname }}</app-reservation-list-item-title>
-    <app-reservation-list-item-subtitle color="success">Checked in at Month Day, Year</app-reservation-list-item-subtitle>
-  </app-reservation-list-item-text>
-</app-reservation-list-item>
+<app-list-item class="app-reservation-list-item-checked-in">
+  <app-list-item-prepend>
+    <app-avatar-placeholder avatar color="success" [initials]="reservationService.getInitials(reservation.guest?.name)"/>
+  </app-list-item-prepend>
+
+  <app-list-item-text>
+    <app-list-item-title>
+      {{ getGuestName(reservation.guest!) }}
+      <mat-icon class="success-text">alternate_email</mat-icon>
+      {{ reservation.accommodation!.title }}
+    </app-list-item-title>
+    <app-list-item-subtitle color="success">Checked in at {{ reservation.checkIn | date:"MMM dd, yyyy 'at' hh:mm a" }}</app-list-item-subtitle>
+  </app-list-item-text>
+
+  <app-list-item-append>
+    <button mat-stroked-button extended color="error" [routerLink]="['/']">
+      <mat-icon>logout</mat-icon>
+      Check out
+    </button>
+  </app-list-item-append>
+</app-list-item>

@@ -1,10 +1,23 @@
 <div class="app-reservation-list">
-  @for (reservation of reservations; track reservation.id) {
-    @if (false) {
-      <app-reservation-list-item-checked-in [reservation]="reservation" />
-      <app-reservation-list-item-checked-out [reservation]="reservation" />
-    } @else {
-      <app-reservation-list-item-not-checked-in [reservation]="reservation" />
-    }
-  }
+  <div class="arriving-today">
+    <h2>Arriving today</h2>
+
+    <div class="list">
+      @for (reservation of arrivingTodayReservations; track reservation.id) {
+        <app-reservation-list-item-not-checked-in [reservation]="reservation" />
+      }
+    </div>
+  </div>
+
+  <div class="leaving-today">
+    <h2>Leaving today</h2>
+
+    <div class="list">
+      @for (reservation of leavingTodayReservations; track reservation.id) {
+        <app-reservation-list-item-checked-in [reservation]="reservation" />
+      }
+    </div>
+  </div>
+  <!-- <app-reservation-list-item-checked-in [reservation]="reservation" />
+  <app-reservation-list-item-checked-out [reservation]="reservation" /> -->
 </div>

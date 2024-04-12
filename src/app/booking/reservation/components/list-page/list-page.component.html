@@ -1,3 +1,13 @@
-<p>list-page works!</p>
+<div class="page-header">
+  <h1>Reservations</h1>
 
-<app-reservation-list [reservations]="reservations" />
+  <button mat-raised-button extended color="primary" [routerLink]="['/']">
+    <mat-icon>add</mat-icon>
+    Create new
+  </button>
+</div>
+
+<app-reservation-list
+  [arrivingTodayReservations]="arrivingTodayReservations"
+  [leavingTodayReservations]="leavingTodayReservations"
+/>

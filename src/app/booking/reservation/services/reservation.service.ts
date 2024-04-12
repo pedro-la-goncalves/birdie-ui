@@ -26,6 +26,14 @@ export class ReservationService {
     return this.httpClient.get<Page<Reservation>>(`${this.baseUrl}`);
   }
 
+  findAllArrivingToday(): Observable<Page<Reservation>> {
+    return this.httpClient.get<Page<Reservation>>(`${this.baseUrl}/arriving-today`);
+  }
+
+  findAllLeavingToday(): Observable<Page<Reservation>> {
+    return this.httpClient.get<Page<Reservation>>(`${this.baseUrl}/leaving-today`);
+  }
+
   findOne(id: number): Observable<Reservation> {
     return this.httpClient.get<Reservation>(`${this.baseUrl}/${id}`);
   }

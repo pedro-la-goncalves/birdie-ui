@@ -1,28 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReservationListComponent } from '../reservation-list/reservation-list.component';
 import { Reservation } from '../../interfaces/reservation.interface';
 import { ReservationService } from '../../services/reservation.service';
 import { Page } from '../../../../shared/pagination/interfaces/page.interface';
+import { MatIconModule } from '@angular/material/icon';
+import { Router, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list-page',
   standalone: true,
   imports: [
-    ReservationListComponent
+    ReservationListComponent,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule
   ],
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.sass'
 })
-export class ListPageComponent {
-  reservations!: Reservation[];
+export class ListPageComponent implements OnInit {
+  arrivingTodayReservations!: Reservation[];
+  leavingTodayReservations!: Reservation[];
 
   constructor(public reservationService: ReservationService) {}
 
-  getGuestPage() {
+  ngOnInit(): void {
+    this.getArrivingTodayReservations();
+    this.getLeavingTodayReservations();
+  }
+
+  getArrivingTodayReservations() {
     return this.reservationService
-      .findAll()
+      .findAllArrivingToday()
       .subscribe((page: Page<Reservation>) => {
-        this.reservations = page.content!;
+        this.arrivingTodayReservations = page.content!;
+      });
+  }
+
+  getLeavingTodayReservations() {
+    return this.reservationService
+      .findAllLeavingToday()
+      .subscribe((page: Page<Reservation>) => {
+        this.leavingTodayReservations = page.content!;
       });
   }
 }

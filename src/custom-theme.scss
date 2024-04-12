@@ -37,8 +37,10 @@ $accent-default: mat.get-theme-color($birdie-ui-theme, accent, default);
 
 $information-default: map.get(mat.$light-blue-palette, 500);
 $success-default: map.get(mat.$light-green-palette, 500);
+$success-light: map.get(mat.$light-green-palette, 50);
 $warn-default: map.get(mat.$orange-palette, 500);
 $error-default: map.get(mat.$pink-palette, 500);
+$error-light: map.get(mat.$pink-palette, 50);
 
 $disabled-default: #ccc;
 
@@ -88,6 +90,15 @@ $disabled-default: #ccc;
   background-color: $success-default !important;
 }
 
+.mat-mdc-outlined-button[color="success"]:not(:disabled) {
+  color: $success-default !important;
+  background-color: transparent !important;
+
+  &:hover {
+    background-color: $success-light !important;
+  }
+}
+
 .warn-text {
   color: $warn-default !important;
 }
@@ -100,6 +111,15 @@ $disabled-default: #ccc;
 .mdc-button.warn-background {
   color: white !important;
   background-color: $warn-default !important;
+}
+
+.mat-mdc-outlined-button[color="error"]:not(:disabled) {
+  color: $error-default !important;
+  background-color: transparent !important;
+
+  &:hover {
+    background-color: $error-light !important;
+  }
 }
 
 .error-text {
@@ -172,4 +192,8 @@ body {
     color: white;
     transform: scale(1.5)
   }
+}
+
+h1, h2 {
+  font-weight: normal;
 }

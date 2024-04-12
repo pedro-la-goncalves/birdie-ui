@@ -1,7 +1,14 @@
-<app-reservation-list-item>
-  <app-avatar-placeholder avatar color="error" [initials]="reservationService.getInitials(reservation.guest?.name)"/>
-  <app-reservation-list-item-text>
-    <app-reservation-list-item-title>{{ reservation.guest?.name + " " + reservation.guest?.surname }}</app-reservation-list-item-title>
-    <app-reservation-list-item-subtitle color="error">Checked out at Month Day, Year</app-reservation-list-item-subtitle>
-  </app-reservation-list-item-text>
-</app-reservation-list-item>
+<app-list-item class="app-reservation-list-item-checked-out">
+  <app-list-item-prepend>
+    <app-avatar-placeholder avatar color="error" [initials]="reservationService.getInitials(reservation.guest?.name)"/>
+  </app-list-item-prepend>
+
+  <app-list-item-text>
+    <app-list-item-title>
+      {{ getGuestName(reservation.guest!) }}
+      <mat-icon class="error-text">alternate_email</mat-icon>
+      {{ reservation.accommodation!.title }}
+    </app-list-item-title>
+    <app-list-item-subtitle color="error">Checked in at {{ reservation.checkIn | date:"MMM dd, yyyy 'at' hh:mm a" }}</app-list-item-subtitle>
+  </app-list-item-text>
+</app-list-item>

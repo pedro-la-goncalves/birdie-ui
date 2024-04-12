@@ -19,7 +19,8 @@ import { ReservationListItemCheckedOutComponent } from './reservation-list-item-
   styleUrl: './reservation-list.component.sass'
 })
 export class ReservationListComponent {
-  @Input({ required: true }) reservations!: Reservation[];
+  @Input({ required: true }) arrivingTodayReservations!: Reservation[];
+  @Input({ required: true }) leavingTodayReservations!: Reservation[];
 
   constructor(public reservationService: ReservationService) {}
 }

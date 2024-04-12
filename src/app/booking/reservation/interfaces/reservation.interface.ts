@@ -1,4 +1,5 @@
-import { Guest } from "../../guest/interfaces/guest.interface"
+import { Accommodation } from "../accommodation/interfaces/accommodation.interface"
+import { Guest } from "../guest/interfaces/guest.interface"
 
 export interface Reservation {
   id?: number
@@ -7,4 +8,5 @@ export interface Reservation {
   checkIn?: string
   checkOut?: string
   guest?: Guest
+  accommodation?: Accommodation
 }
