@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     MatToolbarModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    LogoComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.sass'

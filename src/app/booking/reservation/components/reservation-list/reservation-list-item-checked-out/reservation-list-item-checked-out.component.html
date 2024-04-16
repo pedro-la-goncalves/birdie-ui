@@ -9,6 +9,6 @@
       <mat-icon class="error-text">alternate_email</mat-icon>
       {{ reservation.accommodation!.title }}
     </app-list-item-title>
-    <app-list-item-subtitle color="error">Checked in at {{ reservation.checkIn | date:"MMM dd, yyyy 'at' hh:mm a" }}</app-list-item-subtitle>
+    <app-list-item-subtitle color="error">Checked out at {{ reservation.checkOut | date:"MMM dd, yyyy 'at' hh:mm a" }}</app-list-item-subtitle>
   </app-list-item-text>
 </app-list-item>
