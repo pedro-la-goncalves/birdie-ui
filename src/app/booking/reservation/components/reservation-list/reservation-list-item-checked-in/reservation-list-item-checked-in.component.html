@@ -12,8 +12,8 @@
     <app-list-item-subtitle color="success">Checked in at {{ reservation.checkIn | date:"MMM dd, yyyy 'at' hh:mm a" }}</app-list-item-subtitle>
   </app-list-item-text>
 
-  <app-list-item-append>
-    <button mat-stroked-button extended color="error" [routerLink]="['/']">
+  <app-list-item-append *ngIf="canCheckOut">
+    <button mat-stroked-button extended color="error" (click)="openConfirmDialog(reservation)">
       <mat-icon>logout</mat-icon>
       Check out
     </button>

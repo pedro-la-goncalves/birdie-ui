@@ -13,7 +13,7 @@
   </app-list-item-text>
 
   <app-list-item-append>
-    <button mat-stroked-button extended color="success" [routerLink]="['/']">
+    <button mat-stroked-button extended color="success" (click)="openConfirmDialog(reservation)">
       <mat-icon>check</mat-icon>
       Check in
     </button>

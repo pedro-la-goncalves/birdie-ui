@@ -145,6 +145,22 @@ $disabled-default: #ccc;
   background-color: $disabled-default !important;
 }
 
+mat-snack-bar-container .mdc-snackbar__surface {
+  min-width: auto !important;
+}
+
+mat-snack-bar-container.success .mdc-snackbar__surface {
+  background-color: $success-default;
+}
+
+mat-snack-bar-container.error .mdc-snackbar__surface {
+  background-color: $error-default;
+}
+
+mat-snack-bar-container .mdc-snackbar__label {
+  font-weight: 500 !important;
+}
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
@@ -196,4 +212,8 @@ body {
 
 h1, h2 {
   font-weight: normal;
+}
+
+.confirm-dialog {
+  width: 400px;
 }

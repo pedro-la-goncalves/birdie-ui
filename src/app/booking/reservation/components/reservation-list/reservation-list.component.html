@@ -4,7 +4,11 @@
 
     <div class="list">
       @for (reservation of arrivingTodayReservations; track reservation.id) {
-        <app-reservation-list-item-not-checked-in [reservation]="reservation" />
+        @if (reservation.checkIn) {
+          <app-reservation-list-item-checked-in [reservation]="reservation" [canCheckOut]="false"/>
+        } @else {
+          <app-reservation-list-item-not-checked-in [reservation]="reservation" (checkIn)="updateReservations()"/>
+        }
       }
     </div>
   </div>
@@ -14,7 +18,11 @@
 
     <div class="list">
       @for (reservation of leavingTodayReservations; track reservation.id) {
-        <app-reservation-list-item-checked-in [reservation]="reservation" />
+        @if (reservation.checkIn && reservation.checkOut) {
+          <app-reservation-list-item-checked-out [reservation]="reservation" />
+        } @else {
+          <app-reservation-list-item-checked-in [reservation]="reservation" (checkOut)="updateReservations()" [canCheckOut]="true"/>
+        }
       }
     </div>
   </div>

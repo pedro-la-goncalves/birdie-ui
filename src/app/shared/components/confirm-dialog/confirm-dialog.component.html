@@ -1,6 +1,6 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
-<mat-dialog-content>{{ data.content }}</mat-dialog-content>
-<mat-dialog-actions>
+<h2 mat-dialog-title class="title">{{ data.title }}</h2>
+<mat-dialog-content class="content">{{ data.content }}</mat-dialog-content>
+<mat-dialog-actions class="actions">
   <button mat-stroked-button [mat-dialog-close]="false">{{ data.closeText }}</button>
   <button mat-raised-button color="warn" [mat-dialog-close]="true" >{{ data.confirmText }}</button>
 </mat-dialog-actions>
